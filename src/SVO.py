@@ -23,11 +23,11 @@ if __name__ == "__main__":
         useRansac = False
         showLiveTrajectory = False
 
-    plotTrajectory = True
+    plotTrajectory = False
     outputDebug = False
     print ('SIFT:', useSIFT, 'ransac:', useRansac, 'showTrajectory:', showLiveTrajectory)
 
-    datapath = '../Data/' + '{0:02d}'.format(sequence)
+    datapath = '/home/ubuntu/KITTI/KITTI_gray/dataset/sequences/' + '{0:02d}'.format(sequence)
 
     calibFileName = datapath + '/calib.txt'
     calibFile = open(calibFileName, 'r').readlines()
@@ -53,7 +53,7 @@ if __name__ == "__main__":
     outtxt = ''
     groundTruthTraj = []
     if plotTrajectory:
-        poseFile = datapath + '/' + '{0:02d}'.format(sequence) + '.txt'
+        poseFile = '/home/ubuntu/KITTI/KITTI_gray/dataset/poses' + '/' + '{0:02d}'.format(sequence) + '.txt'
         fpPoseFile = open(poseFile, 'r')
         groundTruthTraj = fpPoseFile.readlines()
 
@@ -98,7 +98,7 @@ if __name__ == "__main__":
         TILE_W = 20
 
         if useSIFT:
-            featureEngine = cv2.xfeatures2d.SIFT_create()
+            featureEngine = cv2.SIFT_create()
         else:
             featureEngine = cv2.FastFeatureDetector_create()
 
