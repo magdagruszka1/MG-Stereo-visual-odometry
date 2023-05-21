@@ -23,7 +23,7 @@ if __name__ == "__main__":
         useRansac = False
         showLiveTrajectory = False
 
-    plotTrajectory = False
+    plotTrajectory = True
     outputDebug = False
     print ('SIFT:', useSIFT, 'ransac:', useRansac, 'showTrajectory:', showLiveTrajectory)
 
@@ -91,7 +91,7 @@ if __name__ == "__main__":
         ImT2_disparityA = np.divide(ImT2_disparity, 16.0)
 
         if outputDebug:
-            fname = 'debugImgs/diparity_' + str(frm) + '.png'
+            fname = 'debugImgs/disparity_' + str(frm) + '.png'
             cv2.imwrite(fname, ImT2_disparityA)
 
         TILE_H = 10
