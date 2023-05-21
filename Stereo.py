@@ -1,11 +1,11 @@
 import numpy as np
 import cv2
 
-ImT1_L = cv2.imread('/Volumes/Files/dataset/sequences/00/image_0/000000.png', 0)  # 0 flag returns a grayscale image
-ImT1_R = cv2.imread('/Volumes/Files/dataset/sequences/00/image_1/000000.png', 0)
+ImT1_L = cv2.imread('../KITTI/KITTI_gray/dataset/sequences/00/image_0/000000.png', 0)  # 0 flag returns a grayscale image
+ImT1_R = cv2.imread('../KITTI/KITTI_gray/dataset/sequences/00/image_1/000000.png', 0)
 
-ImT2_L = cv2.imread('/Volumes/Files/dataset/sequences/00/image_0/000001.png', 0)
-ImT2_R = cv2.imread('/Volumes/Files/dataset/sequences/00/image_1/000001.png', 0)
+ImT2_L = cv2.imread('../KITTI/KITTI_gray/dataset/sequences/00/image_0/000001.png', 0)
+ImT2_R = cv2.imread('../KITTI/KITTI_gray/dataset/sequences/00/image_1/000001.png', 0)
 
 # cv2.imshow('ImT1_L', ImT1_L)
 # cv2.waitKey(0)
@@ -28,10 +28,10 @@ TILE_H = 10
 TILE_W = 20
 fastFeatureEngine = cv2.FastFeatureDetector_create()
 
-#keypoints = fastFeatureEngine.detect(ImT1_L)
-#ftDebug = ImT1_L
-#ftDebug = cv2.drawKeypoints(ImT1_L, keypoints, ftDebug, color=(255,0,0))
-#cv2.imwrite('ftDebug.png', ftDebug)
+keypoints = fastFeatureEngine.detect(ImT1_L)
+ftDebug = ImT1_L
+ftDebug = cv2.drawKeypoints(ImT1_L, keypoints, ftDebug, color=(255,0,0))
+cv2.imwrite('ftDebug.png', ftDebug)
 
 # 20x10 (wxh) tiles for extracting less features from images
 H, W = ImT1_L.shape
@@ -54,7 +54,7 @@ for y in range(0, H, TILE_H):
 
 ftDebug = ImT1_L
 ftDebug = cv2.drawKeypoints(ImT1_L, kp, ftDebug, color=(255, 0, 0))
-#cv2.imwrite('ftDebug.png', ftDebug)
+cv2.imwrite('ftDebug.png', ftDebug)
 # pack keypoint 2-d coords into numpy array
 trackPoints1 = np.zeros((len(kp), 1, 2), dtype=np.float32)
 for i, kpt in enumerate(kp):
@@ -89,7 +89,7 @@ lk_params = dict(winSize=(15, 15),
 p0 = cv2.goodFeaturesToTrack(ImT1_L, mask=None, **feature_params)
 p1, st, err = cv2.calcOpticalFlowPyrLK(ImT1_L, ImT2_L, p0, None, **lk_params)
 
-'''
+
 cv2.polylines(ImT1_L, np.int32(p1), True, (0,255,255), 5);
 cv2.polylines(ImT2_L, np.int32(p1), True, (0,255,255), 5);
 
@@ -100,7 +100,6 @@ cv2.imshow('image',ImT2_L)
 
 cv2.waitKey(0)
 cv2.destroyAllWindows()
-'''
 
 # Create M array
 M = [0] * len(p1)
@@ -116,12 +115,12 @@ count = 0
 maxn = 0
 maxc = 0
 
-'''
+
 for i in range(0,len(p1)):
     for j in range(0,len(p1)):
             print ("{} ".format(M[i][j]),end='')
     print("\n")
-'''
+
 
 # Find point with maximum degree and store in maxn
 for i in range(0,len(p1)):
